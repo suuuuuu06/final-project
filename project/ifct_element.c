@@ -112,9 +112,6 @@ typedef struct ifs_ele{
 
 }ifs_ele_t;
 
-/*int funtion{
-	ifs_ele_t ifs1;
-}*/
 
 //배열 사용 안하고 linkedlist 사용 static ifs_ele_t ifsarray[20]; //구조체 배열 선언. 
 
@@ -166,7 +163,7 @@ int ifctele_getHistPlaceIndex(void* obj, int index)
 		(ptr->place_t[i]);
 	}
 	
-	return ptr;
+	return ptr->place_t;
 }
 
 
@@ -184,7 +181,7 @@ unsigned int ifctele_getinfestedTime(void* obj)
 
 void ifctele_printElement(void* obj)
 {	
-	printf("%d\n",ifctdb_len());
+	
 	//입력 받은 값의 환자 정보를 출력 
 	 
 	ifs_ele_t*ptr=(ifs_ele_t*)obj;
@@ -194,9 +191,6 @@ void ifctele_printElement(void* obj)
 	printf("index: %d, age: %d, detected time: %d, 이동경로: ", ptr->index,ptr->age,ptr-> time);
 	for(j=0;j<N_HISTORY;j++)
 	{
-		int placeindex;
-		//(ptr->place_t[j])=placeindex;
-			
 		printf(" %s",ifsele_getPlaceName((ptr->place_t[j])));
 	}
 	printf("\n");
@@ -204,32 +198,4 @@ void ifctele_printElement(void* obj)
 }
 	
 	
-	/*int i;
-	for(i=0;i<ifctdb_len();i ++) //i번쨰 감염정보 구조체를 liked list로 꺼냄
-	{
-		ifct_element=ifctdb_getData(i); //getdata 함수로 void 포인터 구조체를 반환 받음
-		ifctele_getAge(ifct_element);
-		ifctele_getHistPlaceIndex(ifct_element,i);
-		ifctele_getinfestedTime(ifct_element);
-		if((strPtr->index)==obj)
-		{
-			ifctele_printElement(ifct_element);
-		}
 	
-	} 
-
-	
-	
-	/*int i;
-	printf("index: %d, age: %d, detected time: %d ", strPtr->index,strPtr->age,strPtr-> time);
-	for(i=0;i<N_HISTORY;i++)
-	{
-		strPtr->place_t[i];
-		printf("이동경로: %s",ifsele_getPlaceName(strPtr->place_t[i]));
-	}
-	printf("\n"); */
-		/*번호 나이 감염시간 출
-		for(이동 경로 별)
-			이동 경로 상의 장소 출력 */
-
-	// return?

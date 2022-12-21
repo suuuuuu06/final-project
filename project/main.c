@@ -52,7 +52,7 @@ int main(int argc, const char * argv[]) {
     }
     
     
-    fp=fopen("patientInfo_sample.txt","r");
+    fp=fopen("patientInfo_prb1.txt","r");
     
     //1-2. loading each patient informations
     //!feof(fp)
@@ -113,7 +113,8 @@ int main(int argc, const char * argv[]) {
             case MENU_EXIT:
                 printf("Exiting the program... Bye bye.\n");
                 break;
-                
+            
+			// 1. 특정 환자에 대한 정보 출력     
             case MENU_PATIENT:
             	
             	printf("환자의 번호를 입력하세요: ");
@@ -122,28 +123,61 @@ int main(int argc, const char * argv[]) {
 	            for(i=0;i<ifctdb_len();i ++) //i번쨰 감염정보 구조체를 liked list로 꺼냄
 					{
 						ifct_element=ifctdb_getData(i); //getdata 함수로 void 포인터 구조체를 반환 받음
-						//ifctele_getAge(ifct_element);
-						//ifctele_getHistPlaceIndex(ifct_element,i);
-						//ifctele_getinfestedTime(ifct_element);
-						//ifctele_printElement(ifct_element);
 						if (i==pindex)
 						{
 						   ifctele_printElement(ifct_element);
 						}	
-	
 					} 
 				
 				
                 break;
-                
+            
+			// 2. 특정 장소에서 감염이 확인된 환자 관련 정보 출력     
             case MENU_PLACE:
-                
+            {    //지정된 장소(문자열 형태로 입력)에서 발병 확인 된 환자 모두의 정보출력
+				// enum 문자를 정수로 바꾸는 거 필요
+				//char place;
+				//printf("장소를 입력하시오: ");
+				//scanf("%s",&place);
+				// 문자열을 정수로 바꾸는 코드
+				// int place_num 
+				//for(i=0;i<ifctdb_len();i++)
+				//{
+				ifct_element=ifctdb_getData(1);
+				int num=ifctele_getHistPlaceIndex(ifct_element,1);
+				printf("%d",num);
+					//if (place_num)
+					//{
+						//ifctele_printElement(ifct_element);
+					//}
+				//}
+				 
                 break;
-                
+            
+        	}
+        	
+        	
+			// 3. 특정 나이 범위 환자 정보 출력   
             case MENU_AGE:
-                
+            {
+					
+                int age_min;
+				int age_max;
+				printf("나이를 입력하세요: ");
+				scanf("%d,%d",&age_min,&age_max);
+				for(i=0;i<ifctdb_len();i++)
+				{
+					ifct_element=ifctdb_getData(i);
+					int age=ifctele_getAge(ifct_element);
+						
+					if (age>=age_min&&age<=age_max)
+					{
+						ifctele_printElement(ifct_element);
+					}
+				}
                 break;
-                
+        	}
+        	
             case MENU_TRACK:
                     
                 break;
