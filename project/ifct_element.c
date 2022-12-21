@@ -111,9 +111,7 @@ typedef struct ifs_ele{
 
 
 }ifs_ele_t;
-
-
-//배열 사용 안하고 linkedlist 사용 static ifs_ele_t ifsarray[20]; //구조체 배열 선언. 
+ 
 
 
 
@@ -144,10 +142,9 @@ void* ifctele_genElement(int index, int age, unsigned int detected_time, int his
 
 
 
-int ifctele_getAge(void* obj)
+int ifctele_getAge(void* obj) //구조체에서 나이 값을 추출해주는  함수 
 {
-	//구조체에서 나이 값을 추출해주는  함수 
-	ifs_ele_t *ptr=(ifs_ele_t *)obj; //
+	ifs_ele_t *ptr=(ifs_ele_t *)obj; 
 	
 	return ptr->age;
 }
@@ -163,7 +160,7 @@ int ifctele_getHistPlaceIndex(void* obj, int index)
 		(ptr->place_t[i]);
 	}
 	
-	return ptr->place_t;
+	return ptr->place_t[N_HISTORY];
 }
 
 
@@ -179,22 +176,20 @@ unsigned int ifctele_getinfestedTime(void* obj)
 
 
 
-void ifctele_printElement(void* obj)
+void ifctele_printElement(void* obj) //main.c에서 입력 받은 값(조건)의 환자 정보를 출력 
 {	
 	
-	//입력 받은 값의 환자 정보를 출력 
 	 
 	ifs_ele_t*ptr=(ifs_ele_t*)obj;
-
 	
 	int j;
 	printf("index: %d, age: %d, detected time: %d, 이동경로: ", ptr->index,ptr->age,ptr-> time);
+	
 	for(j=0;j<N_HISTORY;j++)
 	{
-		printf(" %s",ifsele_getPlaceName((ptr->place_t[j])));
+		printf(" %s ",ifsele_getPlaceName(ptr->place_t[j]));
 	}
 	printf("\n");
-		
 }
 	
 	

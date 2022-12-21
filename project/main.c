@@ -55,7 +55,7 @@ int main(int argc, const char * argv[]) {
     fp=fopen("patientInfo_prb1.txt","r");
     
     //1-2. loading each patient informations
-    //!feof(fp)
+
     while(fscanf(fp,"%d" "%d" "%d",&pindex,&age,&time)==3)
 	{
     	
@@ -69,29 +69,10 @@ int main(int argc, const char * argv[]) {
     	ifctdb_addTail(ifct_element);
 	}
 	
-	ifctdb_len();
+	//ifctdb_len();
 	
 
-	int i;
-	for(i=0;i<ifctdb_len();i ++) //i번쨰 감염정보 구조체를 liked list로 꺼냄
-	{
-		ifct_element=ifctdb_getData(i); //getdata 함수로 void 포인터 구조체를 반환 받음
-		ifctele_getAge(ifct_element);
-		ifctele_getHistPlaceIndex(ifct_element,i);
-		ifctele_getinfestedTime(ifct_element);
-	
-	 } 
-
-	
-	//감염 정보 출력
-	// i번쨰 감염자에 대해 아래 수행  
-	//i번쨰 감염정보 구조체를 liked list로 꺼냄 
-	//getdata 함수로 void 포인터 구조체를 반환 받음
-	//element에게 전달하면서 출력
-	//printelement 함수 활용
- 
     
- 
     //1-3. FILE pointer close
     fclose(fp);
     
@@ -114,66 +95,75 @@ int main(int argc, const char * argv[]) {
                 printf("Exiting the program... Bye bye.\n");
                 break;
             
-			// 1. 특정 환자에 대한 정보 출력     
+			// 1. 특정 index값 환자에 대한 정보 출력     
             case MENU_PATIENT:
-            	
+            {
+					
             	printf("환자의 번호를 입력하세요: ");
             	scanf("%d",&pindex);
             	int i;
 	            for(i=0;i<ifctdb_len();i ++) //i번쨰 감염정보 구조체를 liked list로 꺼냄
 					{
 						ifct_element=ifctdb_getData(i); //getdata 함수로 void 포인터 구조체를 반환 받음
-						if (i==pindex)
-						{
+						
+					
+						if (i==pindex) //입력한 값의 환자 정보 출력
 						   ifctele_printElement(ifct_element);
-						}	
+							
 					} 
 				
 				
                 break;
-            
+            }
+           
 			// 2. 특정 장소에서 감염이 확인된 환자 관련 정보 출력     
             case MENU_PLACE:
             {    //지정된 장소(문자열 형태로 입력)에서 발병 확인 된 환자 모두의 정보출력
 				// enum 문자를 정수로 바꾸는 거 필요
-				//char place;
-				//printf("장소를 입력하시오: ");
-				//scanf("%s",&place);
-				// 문자열을 정수로 바꾸는 코드
+				/*char city;
+				printf("장소를 입력하시오: ");
+				scanf("%s",&city);
+				enum place city= int num;
+				
 				// int place_num 
 				//for(i=0;i<ifctdb_len();i++)
 				//{
 				ifct_element=ifctdb_getData(1);
-				int num=ifctele_getHistPlaceIndex(ifct_element,1);
-				printf("%d",num);
-					//if (place_num)
-					//{
-						//ifctele_printElement(ifct_element);
-					//}
-				//}
-				 
+				int num2= ifctele_getHistPlaceIndex(ifct_element,i);
+	
+					if (num==num2[5])
+					{
+						ifctele_printElement(ifct_element);
+					}
+				}*/
+				//enum place jeju= int i;
+				//printf("%d",i);
                 break;
-            
+            	
         	}
         	
         	
 			// 3. 특정 나이 범위 환자 정보 출력   
             case MENU_AGE:
             {
-					
+				int i;	
                 int age_min;
 				int age_max;
+				
 				printf("나이를 입력하세요: ");
 				scanf("%d,%d",&age_min,&age_max);
+				
 				for(i=0;i<ifctdb_len();i++)
 				{
 					ifct_element=ifctdb_getData(i);
 					int age=ifctele_getAge(ifct_element);
 						
-					if (age>=age_min&&age<=age_max)
+					if (age>=age_min&&age<=age_max)  //입력값 조건 만족시키는 환자 정보 출력  
 					{
 						ifctele_printElement(ifct_element);
+						printf("\n");
 					}
+					 
 				}
                 break;
         	}
@@ -189,6 +179,6 @@ int main(int argc, const char * argv[]) {
     
     } while(menu_selection != 0);
     
-    
+    //free(struct ifs_ele*ptr);
     return 0;
 }
