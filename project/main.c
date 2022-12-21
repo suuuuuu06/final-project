@@ -55,7 +55,8 @@ int main(int argc, const char * argv[]) {
     fp=fopen("patientInfo_prb1.txt","r");
     
     //1-2. loading each patient informations
-
+	
+	//파일에서 환자 정보 읽어오기  
     while(fscanf(fp,"%d" "%d" "%d",&pindex,&age,&time)==3)
 	{
     	
@@ -65,11 +66,11 @@ int main(int argc, const char * argv[]) {
 			fscanf(fp,"%d",&placeHist[i]);
     	}
     	
-    	ifct_element=ifctele_genElement(pindex,age,time,placeHist);
-    	ifctdb_addTail(ifct_element);
+    	ifct_element=ifctele_genElement(pindex,age,time,placeHist); //구조체 생성해 void 포인터 반환  
+    	ifctdb_addTail(ifct_element);//구조체 저장  
 	}
 	
-	//ifctdb_len();
+
 	
 
     
@@ -118,28 +119,27 @@ int main(int argc, const char * argv[]) {
            
 			// 2. 특정 장소에서 감염이 확인된 환자 관련 정보 출력     
             case MENU_PLACE:
-            {    //지정된 장소(문자열 형태로 입력)에서 발병 확인 된 환자 모두의 정보출력
-				// enum 문자를 정수로 바꾸는 거 필요
-				/*char city;
+            {    
+				/*지정된 장소(문자열 형태로 입력)에서 발병 확인 된 환자 모두의 정보출력
+				enum 문자를 정수로 바꾸는 코드 필요
+				
+				char city;
 				printf("장소를 입력하시오: ");
 				scanf("%s",&city);
 				enum place city= int num;
 				
-				// int place_num 
-				//for(i=0;i<ifctdb_len();i++)
-				//{
-				ifct_element=ifctdb_getData(1);
-				int num2= ifctele_getHistPlaceIndex(ifct_element,i);
-	
-					if (num==num2[5])
+				for(i=0;i<ifctdb_len();i++)
+				{
+					ifct_element=ifctdb_getData(1);
+					int placeindex[N_HISTORY]= ifctele_getHistPlaceIndex(ifct_element,i);
+					if (num==placeindex[5])
 					{
 						ifctele_printElement(ifct_element);
 					}
-				}*/
-				//enum place jeju= int i;
-				//printf("%d",i);
+				}
+			
                 break;
-            	
+            	*/
         	}
         	
         	
@@ -147,8 +147,8 @@ int main(int argc, const char * argv[]) {
             case MENU_AGE:
             {
 				int i;	
-                int age_min;
-				int age_max;
+                int age_min;//최소 나이  
+				int age_max;//최대 나이  
 				
 				printf("나이를 입력하세요: ");
 				scanf("%d,%d",&age_min,&age_max);
@@ -158,7 +158,7 @@ int main(int argc, const char * argv[]) {
 					ifct_element=ifctdb_getData(i);
 					int age=ifctele_getAge(ifct_element);
 						
-					if (age>=age_min&&age<=age_max)  //입력값 조건 만족시키는 환자 정보 출력  
+					if (age>=age_min&&age<=age_max)  //최소나이 이상 최대나이 이하의 조건을 만족시키는 환자 정보 출력  
 					{
 						ifctele_printElement(ifct_element);
 						printf("\n");

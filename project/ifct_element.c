@@ -115,13 +115,13 @@ typedef struct ifs_ele{
 
 
 
-char* ifsele_getPlaceName(int placeIndex)
+char* ifsele_getPlaceName(int placeIndex) //정수의 장소를 문자열로 변환시키는 함수  
 {	
 	return countryName[placeIndex];
 }
 
 
-void* ifctele_genElement(int index, int age, unsigned int detected_time, int history_place[N_HISTORY])
+void* ifctele_genElement(int index, int age, unsigned int detected_time, int history_place[N_HISTORY]) //동적메모리 할당을 이용해 구조체 생성  
 {
 	ifs_ele_t *ptr;
 	
@@ -149,7 +149,7 @@ int ifctele_getAge(void* obj) //구조체에서 나이 값을 추출해주는  함수
 	return ptr->age;
 }
 
-int ifctele_getHistPlaceIndex(void* obj, int index)
+int ifctele_getHistPlaceIndex(void* obj, int index)// 구조체에서 이동 경로를 추출해 주는 함수  
 {
 	ifs_ele_t *ptr=(ifs_ele_t *)obj;
 	
@@ -165,7 +165,7 @@ int ifctele_getHistPlaceIndex(void* obj, int index)
 
 
 
-unsigned int ifctele_getinfestedTime(void* obj)
+unsigned int ifctele_getinfestedTime(void* obj)// 감염 일자를 추출해 주는 함수  
 {
 	ifs_ele_t *ptr=(ifs_ele_t *)obj;
 	
@@ -176,14 +176,14 @@ unsigned int ifctele_getinfestedTime(void* obj)
 
 
 
-void ifctele_printElement(void* obj) //main.c에서 입력 받은 값(조건)의 환자 정보를 출력 
+void ifctele_printElement(void* obj) //main.c에서 입력 받은 값(조건)의 환자 정보를 출력하는 함수  
 {	
 	
 	 
 	ifs_ele_t*ptr=(ifs_ele_t*)obj;
 	
 	int j;
-	printf("index: %d, age: %d, detected time: %d, 이동경로: ", ptr->index,ptr->age,ptr-> time);
+	printf("환자 번호 : %d, 나이: %d세, 감염확인 일자: %d, 이동경로: ", ptr->index,ptr->age,ptr-> time);
 	
 	for(j=0;j<N_HISTORY;j++)
 	{
